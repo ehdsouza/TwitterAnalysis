@@ -6,11 +6,17 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
+import configparser
+
+config = configparser.ConfigParser()
+config.sections()
+config.read('F:\BDAA\config')
+
 # variables that contain the user credentials to access twitter apis
-access_token = ""
-access_token_secret = ""
-consumer_key = ""
-consumer_secret = ""
+access_token = config.get('DEFAULT', 'access_token')
+access_token_secret = config.get('DEFAULT','access_token_secret')
+consumer_key = config.get('DEFAULT','consumer_key')
+consumer_secret = config.get('DEFAULT','consumer_secret')
 
 
 class StdOutListener(StreamListener):
