@@ -1,10 +1,12 @@
 __author__ = "Gourav"
 
+import time
 from flask import Flask
 from flask import jsonify
 from flask import make_response
 
 app = Flask(__name__)
+version = 'v1'
 
 feeds = [
     {"created_at": "Thu Nov 19 20:18:57 +0000 2015", "id": 667436924836122626, "id_str": "667436924836122626",
@@ -35,11 +37,34 @@ feeds = [
 ]
 
 
-@app.route('/twitter/api/v1/feeds', methods=['GET'])
+@app.route('/twitter/'+version+'/feeds', methods=['GET'])
 def get_twitter_feeds():
     return jsonify({
         'feeds': feeds
     })
+
+@app.route('/test/get/<int:id>', methods=['GET'])
+def get_response(id):
+    time.sleep(5)
+    return jsonify({
+        'response': id
+    })
+
+@app.route('/twitter/'+version+'/sentiment/analyze', methods=['POST'])
+def analyze_sentiment():
+    """
+    Method to analyze sentiments
+    :return:
+    """
+    return None
+
+@app.route('/twitter/'+version+'/sentiment/get', methods=['GET'])
+def get_sentiment():
+    """
+    Method to get analysed sentiments
+    :return:
+    """
+    return None
 
 @app.errorhandler(404)
 def not_found(error):
