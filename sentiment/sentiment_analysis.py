@@ -47,3 +47,11 @@ class SentimentAnalysis(object):
 if __name__ == '__main__':
     cls = SentimentAnalysis()
     cls.to_dict('E:\Developer_Workspaces\Python_Workspace\sentiment-analysis\paris_op.txt')
+
+    text = [
+        "this is such a bright day.",
+        "I hate american food!"
+    ]
+
+    #result = indicoio.sentiment(text)
+    #pprint(result)
