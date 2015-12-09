@@ -3,6 +3,7 @@ __author__ = 'Gaurav-PC'
 import csv
 from time import sleep
 from sentiment.classifier import Classifier
+from sentiment.indico_sentiment_analyser import IndicoSentimentAnalyser
 
 in_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\cuisine_dataset.csv"
 out_file = "cuisine_dataset_with_header.csv"
@@ -10,6 +11,8 @@ temp_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\cuisine
 
 # cuisine files
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\indian.csv"
+italian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\italian.csv"
+mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\mideast.csv"
 
 indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
                   'naan', 'kulcha', 'upma', 'idli', 'dosa', 'sambar',
@@ -23,6 +26,14 @@ indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
                   'rajasthani', 'jalebi', 'laddoo', 'papad', 'kolhapuri', 'raita', 'mangalorean',
                   'xacuti', 'rachedo', 'saag', 'sarso', 'gulkand', 'paan']
 
+italian_cuisine = [
+	'italy', 'italian', 'spain', 'spanish', 'pizza', 'pasta', 'spaghetti', 'breadstick', 'alfredo', 'antipasti', 'bruschetta', 'capicollo', 'insalata capreses', 'mozzarelline', 'fitte', 'mozzarella', 'olives', 'prosciutto', 'salami', 'nervetti', 'bari', 'biga', 'buccellato', 'casatiello', 'ciabatta', 'ciaccino', 'ciriola', 'colimba', 'pasquale', 'crocche', 'farinata', 'acquacotta', 'bagna', 'cauda', 'garmugia', 'minestrone', 'fagioli', 'grine', 'straciatella', 'marinara', 'siciliana', 'pugilese', 'capricciosa', 'quatrro', 'formaggi', 'ziti', 'ravioli', 'carbonara', 'risotto', 'vitello'
+]
+
+mid_east_cuisine = ['hummus','manakeesh','halloumi','meddamas','falafel','tabouleh','moutabal','ghanoush','fattoush','shanklish',
+'shawarma','shish','tawook','dolma','kofta','quwarmah','dajaj','mansaf','baklava','knafeh','masgouf','qaimar',
+'lablabi','kishta','shineena','laban','musakhan','mujaddara','aseed','fahsa','thareed','samak','mofa','mandi',
+'fattah','shakshouka','kabsa','jachnun']
 
 # count = 0
 # with open(in_file, 'rb') as fp:
@@ -70,12 +81,14 @@ indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
 #     print("Complete!")
 
 count = 0
+diff_count = 0
 classifier = Classifier()
+analyser = IndicoSentimentAnalyser()
 
 with open(temp_file, 'rb') as fp:
     reader = csv.reader(fp)
 
-    with open(indian_file, 'wb') as op:
+    with open(mideast_file, 'wb') as op:
         writer = csv.writer(op)
         writer.writerow(['Location', 'Text', 'Sentiment'])
 
@@ -83,11 +96,18 @@ with open(temp_file, 'rb') as fp:
             tweet_text = row[12]
             location = row[3]
             try:
-                if any(word in tweet_text.lower().split() for word in indian_cuisine):
+                if any(word in tweet_text.lower().split() for word in mid_east_cuisine):
+                    """
+                    small code to cover up for last failure
+                    """
                     count += 1
-                    sentiment = classifier.get_sentiment(tweet_text)
+                    # diff_count += 1
+                    # if diff_count < 8234:
+                    #     continue
+
+                    # sentiment = classifier.get_sentiment(tweet_text)
+                    sentiment = analyser.analyse_sentiment(text=tweet_text)
                     print("Done.. " + str(count))
-                    sleep(0.5)
                     writer.writerow([location, tweet_text, sentiment])
             except Exception as ex:
                 print("Error after: [" + str(count) + "] items. Msg: " + ex.message)
