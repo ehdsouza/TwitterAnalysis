@@ -33,6 +33,9 @@ class TwitterFeeds(object):
 
     @classmethod
     def get_tweets(cls, keyword):
+
+        global tweet_file
+
         # get the auth
         auth = cls.get_auth()
         # define the listener
@@ -45,7 +48,7 @@ class TwitterFeeds(object):
 
         current_milli_time = str(int(round(time.time() * 1000)))
         # open a file to write tweets
-        tweet_file = open(keyword+'_'+current_milli_time+'.txt', 'w')
+        tweet_file = open(keyword+'_'+current_milli_time+'.txt', 'a')
 
         try:
             # get past tweets, max 500
@@ -55,6 +58,10 @@ class TwitterFeeds(object):
                 tweet_file.write('\n')
                 #pprint(tweet)
 
+            # Close the file
+            # tweet_file.close()
+
+            # run live feeds
             stream.filter(track=[keyword])
         except Exception as ex:
             print(ex.message, ex)
@@ -64,19 +71,23 @@ class TwitterFeeds(object):
 
 class StdOutListener(StreamListener):
     count = 0
+
     def on_data(self, data):
-        self.count+=1
-        print(self.count)
+        global tweet_file
+
+        # self.count+=1
+        # print(self.count)
         tweet_file.write(json.loads(data)['text'].encode("UTF-8") + '\n')
         #print(json.loads(data)['text'])
         return True
 
     def on_error(self, status_code):
         print(status_code)
+        tweet_file.close()
 
 if __name__ == '__main__':
     feeds = TwitterFeeds()
-    feeds.get_tweets('paris')
+    feeds.get_tweets('Apple')
 
 
 

@@ -28,5 +28,6 @@ class Classifier:
         return json_response["label"]
 
 # TEST #
-clsfy = Classifier()
-print(clsfy.get_sentiment("I love music"))
+if __name__ == "__main__":
+    clsfy = Classifier()
+    print(clsfy.get_sentiment("I love music"))
