@@ -1,39 +1,32 @@
 import urllib
 import urllib2
+import json
+
 
 class Classifier:
     """
     Classifier class to analyze sentiments of sentences.
     """
 
-    def getSentiment(self, text, language="english"):
+    def get_sentiment(self, text, language="english"):
         """
         The function that returns a sentiment for text.
         :param text: Text to analyze.
         :param language: Language for the text.
-        :return: positive, negative, neutral.
+        :return: pos, neg, neutral
         """
 
-        url = 'http://text-processing.com/demo/sentiment/'
+        url = 'http://text-processing.com/api/sentiment/'
         params = urllib.urlencode({
           'language': language,
           'text': text
         })
         response = urllib2.urlopen(url, params).read()
 
-        # print(response)
+        json_response = json.loads(response)
 
-        positive = "<strong class='large positive'>"
-        negative = "<strong class='large negative'>"
-        neutral = "<strong class='large quiet'>"
+        return json_response["label"]
 
-        if positive in response:
-            return "positive"
-        elif negative in response:
-            return "negative"
-        elif neutral in response:
-            return "neutral"
-
-#### TEST ####
+# TEST #
 clsfy = Classifier()
-print(clsfy.getSentiment("I love Music"))
+print(clsfy.get_sentiment("I love music"))
