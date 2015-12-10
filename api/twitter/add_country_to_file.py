@@ -5,11 +5,12 @@ from locations import Locations
 
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\indian_with_date.csv"
 italian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\italian_with_date.csv"
-out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\italian_cuisine_final.csv"
+mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\mideast_with_date.csv"
+out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_final.csv"
 
 location = Locations()
 
-with open(italian_file, 'rb') as fp:
+with open(mideast_file, 'rb') as fp:
     reader = csv.reader(fp)
 
     with open(out_file, 'wb') as op:
@@ -26,6 +27,8 @@ with open(italian_file, 'rb') as fp:
             country = location.get_country(loc)
             final = [row[0], loc, country, row[2], row[3]]
             writer.writerow(final)
+            count += 1
+            print("Done [" + str(count) + "] ...")
 
 
 
