@@ -18,7 +18,7 @@ indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
                   'naan', 'kulcha', 'upma', 'idli', 'dosa', 'sambar',
                   'rasam', 'kheer', 'tandoori', 'makhni', 'daal', 'dal',
                   'pulao', 'paneer', 'gobi', 'aaloo', 'bhindi', 'rava',
-                  'malai' , 'kofta', 'sheera', 'puri', 'pani', 'masala dosa',
+                  'malai', 'kofta', 'sheera', 'puri', 'pani', 'masala dosa',
                   'namkeen', 'samosa', 'vada', 'chutney', 'bhurji', 'bhel', 'chaat',
                   'ragda', 'shev', 'choley', 'kulfi', 'lassi', 'gulab', 'jamun', 'kala',
                   'raj', 'bhog', 'bhajia', 'bhujia', 'rasgulla', 'rasmalai', 'sandesh',
@@ -26,14 +26,23 @@ indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
                   'rajasthani', 'jalebi', 'laddoo', 'papad', 'kolhapuri', 'raita', 'mangalorean',
                   'xacuti', 'rachedo', 'saag', 'sarso', 'gulkand', 'paan']
 
-italian_cuisine = [
-	'italy', 'italian', 'spain', 'spanish', 'pizza', 'pasta', 'spaghetti', 'breadstick', 'alfredo', 'antipasti', 'bruschetta', 'capicollo', 'insalata capreses', 'mozzarelline', 'fitte', 'mozzarella', 'olives', 'prosciutto', 'salami', 'nervetti', 'bari', 'biga', 'buccellato', 'casatiello', 'ciabatta', 'ciaccino', 'ciriola', 'colimba', 'pasquale', 'crocche', 'farinata', 'acquacotta', 'bagna', 'cauda', 'garmugia', 'minestrone', 'fagioli', 'grine', 'straciatella', 'marinara', 'siciliana', 'pugilese', 'capricciosa', 'quatrro', 'formaggi', 'ziti', 'ravioli', 'carbonara', 'risotto', 'vitello'
-]
+italian_cuisine = ['italy', 'italian', 'spain', 'spanish', 'pizza', 'cheeze', 'pasta', 'spaghetti', 'breadstick',
+                   'alfredo', 'antipasti', 'bruschetta', 'capicollo', 'insalata capreses', 'mozzarelline',
+                   'fitte', 'mozzarella', 'olives', 'prosciutto', 'salami', 'nervetti', 'bari', 'biga', 'buccellato',
+                   'casatiello', 'ciabatta', 'ciaccino', 'ciriola', 'colimba', 'pasquale', 'crocche', 'farinata',
+                   'acquacotta', 'bagna', 'cauda', 'garmugia', 'minestrone', 'fagioli', 'grine', 'straciatella',
+                   'marinara', 'siciliana', 'pugilese', 'capricciosa', 'quatrro', 'formaggi', 'ziti', 'ravioli',
+                   'carbonara', 'risotto', 'vitello', 'rosetta', 'pita', 'lasagne']
 
-mid_east_cuisine = ['hummus','manakeesh','halloumi','meddamas','falafel','tabouleh','moutabal','ghanoush','fattoush','shanklish',
-'shawarma','shish','tawook','dolma','kofta','quwarmah','dajaj','mansaf','baklava','knafeh','masgouf','qaimar',
-'lablabi','kishta','shineena','laban','musakhan','mujaddara','aseed','fahsa','thareed','samak','mofa','mandi',
-'fattah','shakshouka','kabsa','jachnun']
+mid_east_cuisine = ['hummus', 'manakeesh', 'halloumi', 'meddamas', 'falafel', 'tabouleh', 'moutabal', 'ghanoush',
+                    'fattoush', 'shanklish',
+                    'shawarma', 'shish', 'tawook', 'dolma', 'kofta', 'quwarmah', 'dajaj', 'mansaf', 'baklava', 'knafeh',
+                    'masgouf', 'qaimar',
+                    'lablabi', 'kishta', 'shineena', 'laban', 'musakhan', 'mujaddara', 'aseed', 'fahsa', 'thareed',
+                    'samak', 'mofa', 'mandi',
+                    'fattah', 'shakshouka', 'kabsa', 'jachnun']
+
+
 
 # count = 0
 # with open(in_file, 'rb') as fp:
@@ -88,15 +97,16 @@ analyser = IndicoSentimentAnalyser()
 with open(temp_file, 'rb') as fp:
     reader = csv.reader(fp)
 
-    with open(mideast_file, 'wb') as op:
+    with open(italian_file, 'wb') as op:
         writer = csv.writer(op)
-        writer.writerow(['Location', 'Text', 'Sentiment'])
+        writer.writerow(['Date', 'Location', 'Text', 'Sentiment'])
 
         for row in reader:
             tweet_text = row[12]
             location = row[3]
+            date = row[7]
             try:
-                if any(word in tweet_text.lower().split() for word in mid_east_cuisine):
+                if any(word in tweet_text.lower().split() for word in italian_cuisine):
                     """
                     small code to cover up for last failure
                     """
@@ -108,7 +118,7 @@ with open(temp_file, 'rb') as fp:
                     # sentiment = classifier.get_sentiment(tweet_text)
                     sentiment = analyser.analyse_sentiment(text=tweet_text)
                     print("Done.. " + str(count))
-                    writer.writerow([location, tweet_text, sentiment])
+                    writer.writerow([date, location, tweet_text, sentiment])
             except Exception as ex:
                 print("Error after: [" + str(count) + "] items. Msg: " + ex.message)
                 sleep(5)
