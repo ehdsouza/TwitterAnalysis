@@ -1,12 +1,12 @@
-__author__ = 'erika'
+uthor__ = 'erika'
 
-"Use writetb to put data on HDFS with demo that writes local directory contents to HDFS"
 import hadoopy
 import os
 
-hdfs_path = 'data_in_ex0.seq.tb'
+# change the directory path...
+hdfs_path = 'hdfs://localhost:9000/twitter1'
 
-
+# this will create a key, value paif of filepath, data
 def read_local_dir(local_path):
     for fn in os.listdir(local_path):
         path = os.path.join(local_path, fn)
@@ -15,7 +15,7 @@ def read_local_dir(local_path):
 
 
 def main():
-    local_path = '.'
+    local_path = '/home/hdusr/erika/data'
     hadoopy.writetb(hdfs_path, read_local_dir(local_path))
 
 if __name__ == '__main__':
