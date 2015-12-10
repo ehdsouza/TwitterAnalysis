@@ -8,7 +8,8 @@ from pprint import pprint
 class IndicoSentimentAnalyser(object):
 
     def __init__(self):
-        indicoio.config.api_key = 'feb779d7bb3f772b893d6747f22ba631'
+        # indicoio.config.api_key = 'feb779d7bb3f772b893d6747f22ba631'
+        indicoio.config.api_key = '43c6c90b11e05e76a9432e6c1ba7dff4'
 
     @classmethod
     def analyse_sentiments_batch(cls, list):
