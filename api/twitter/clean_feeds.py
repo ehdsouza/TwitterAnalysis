@@ -2,6 +2,7 @@ __author__ = 'Gaurav-PC'
 
 import csv
 from time import sleep
+from locations import Locations
 from sentiment.classifier import Classifier
 from sentiment.indico_sentiment_analyser import IndicoSentimentAnalyser
 
@@ -13,6 +14,7 @@ temp_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\cuisine
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\indian.csv"
 italian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\italian.csv"
 mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\mideast.csv"
+chinese_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\chinese.csv"
 
 indian_cuisine = ['biryani', 'indian', 'india', 'masala', 'tikka',
                   'naan', 'kulcha', 'upma', 'idli', 'dosa', 'sambar',
@@ -42,6 +44,16 @@ mid_east_cuisine = ['hummus', 'manakeesh', 'halloumi', 'meddamas', 'falafel', 't
                     'samak', 'mofa', 'mandi',
                     'fattah', 'shakshouka', 'kabsa', 'jachnun']
 
+chinese_cuisine = ['china', 'chinese', 'beijing', 'asian', 'shangai','pork', 'gong', 'bao', 'chicken', 'tofu', 'wonton',
+                   'dumpling', 'chowmein', 'chow', 'mein', 'rangoon', 'teriyaki', 'sushi',
+                   'spring', 'roll', 'peking' 'roasted' 'duck', 'hunan',
+                   'bamboo', 'noodle', 'sichuan', 'chengdu', 'chilli',
+                   'beef', 'lamian', 'zhajiangmian', 'char', 'siu', 'egg', 'peking', 'soy', 'buddha',
+                   'stir', 'fry', 'stirfry', 'Baozi', 'dim', 'sum', 'guotie', 'jiaozi', 'mantou', 'wonton',
+                   'xiaolongbao', 'zongzi', 'sachima', 'shaobing', 'youtiao', 'congee', 'pot', 'tong', 'sui',
+                   'pumpkin', 'rabbit', 'cantonese', 'roast', 'pig', 'seafood',
+                   'shark', 'yeung', 'yusheng', 'popiah', 'fujian', 'oyster', 'omlette', 'wine', 'hainanese', 'wengchang',
+                   'jiangsu', 'shangdong', 'fuqi', 'feipian', 'dandan', 'dandan', 'chongqing', 'mapo', 'shuizhu', 'zhangcha']
 
 
 # count = 0
@@ -93,20 +105,23 @@ count = 0
 diff_count = 0
 classifier = Classifier()
 analyser = IndicoSentimentAnalyser()
+locations = Locations()
 
 with open(temp_file, 'rb') as fp:
     reader = csv.reader(fp)
 
-    with open(italian_file, 'wb') as op:
+    with open(chinese_file, 'wb') as op:
         writer = csv.writer(op)
-        writer.writerow(['Date', 'Location', 'Text', 'Sentiment'])
+        writer.writerow(['Date', 'Location', 'Country', 'Text', 'Sentiment'])
 
         for row in reader:
             tweet_text = row[12]
             location = row[3]
             date = row[7]
+            country = locations.get_country(location=location)
+
             try:
-                if any(word in tweet_text.lower().split() for word in italian_cuisine):
+                if any(word in tweet_text.lower().split() for word in chinese_cuisine):
                     """
                     small code to cover up for last failure
                     """
@@ -117,10 +132,10 @@ with open(temp_file, 'rb') as fp:
 
                     # sentiment = classifier.get_sentiment(tweet_text)
                     sentiment = analyser.analyse_sentiment(text=tweet_text)
+                    writer.writerow([date, location, country, tweet_text, sentiment])
                     print("Done.. " + str(count))
-                    writer.writerow([date, location, tweet_text, sentiment])
             except Exception as ex:
-                print("Error after: [" + str(count) + "] items. Msg: " + ex.message)
+                print("Error after: [" + str(count) + "] items. Msg: " + str(ex.message))
                 sleep(5)
                 continue
 print(count)
