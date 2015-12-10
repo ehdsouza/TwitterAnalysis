@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>
+    <script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  </head>
+  <body>
+    <div id="wcdiv" style="height:500px;width:700px;overflow:scroll"></div>
+    <script type="text/javascript">
+      google.load("visualization", "1");
+      google.setOnLoadCallback(draw);
+
+      //var text = 'Adelaide Hills Adelaide Hills Adelaide Hills Adelaide Hills,Indian Coconut Prawn Curry with Basmati Rice. #cleaneating #cleaneats #healthy #dinner #tea #fitlife'
+
+      function readTextFile(file)
+      {
+          var textFile = new XMLHttpRequest();
+          textFile.open("GET", file, false);
+          textFile.onreadystatechange = function ()
+          {
+              if(textFile.readyState === 4)
+              {
+                  if(textFile.status === 200 || textFile.status == 0)
+                  {
+                      text = textFile.responseText;
+                  }
+              }
+          }
+          textFile.send(null);
+      }
+
+      function draw() {
+        readTextFile("sample.txt")
+        //alert(text)
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Text1');
+        data.addRows(1);
+        data.setCell(0,0, text);
+        var outputDiv = document.getElementById('wcdiv');
+        var wc = new WordCloud(outputDiv);
+        wc.draw(data, null);
+      }
+    </script>
+  </body>
+</html>
