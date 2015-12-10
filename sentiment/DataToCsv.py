@@ -1,5 +1,9 @@
 import csv
 
+"""
+For Bar Graph
+
+"""
 
 class DataToCsv:
 
@@ -16,30 +20,30 @@ class DataToCsv:
         csvfile = open(csv_to_proc, 'r')
         output_csv = open(output_csv, 'w')
 
-        fieldnames = ("Location", "Text", "Sentiment")
+        fieldnames = ("Date","Location","Country","Text","Sentiment")
         reader = csv.DictReader(csvfile, fieldnames)
 
         for row in reader:
             row_dict = dict(row)
-            location = row_dict["Location"].strip()
-            if len(location) == 0:
+            country = row_dict["Country"].strip()
+            if len(country) == 0:
                 # If location is blank, consider Global.
-                location = "Global"
-            if location not in result_dict:
-                result_dict[location] = {'location': location,
+                country = "Global"
+            if country not in result_dict:
+                result_dict[country] = {'country': country,
                                          'positive': 0,
                                          'negative': 0,
                                          'neutral': 0}
 
             if row_dict["Sentiment"] == "pos":
-                result_dict[location]["positive"] += 1
+                result_dict[country]["positive"] += 1
             if row_dict["Sentiment"] == "neg":
-                result_dict[location]["negative"] += 1
+                result_dict[country]["negative"] += 1
             if row_dict["Sentiment"] == "neutral":
-                result_dict[location]["neutral"] += 1
+                result_dict[country]["neutral"] += 1
 
         csvout = csv.writer(output_csv)
-        csvout.writerow(["Location", "Positive", "Negative", "Neutral"])
+        csvout.writerow(["Country", "Positive", "Negative", "Neutral"])
 
         for data in result_dict:
             csvout.writerow([data, result_dict[data]["positive"], result_dict[data]["negative"],
@@ -52,7 +56,7 @@ class DataToCsv:
 # TEST #
 if __name__ == "__main__":
     datatocsv = DataToCsv()
-    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full.csv"
+    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_cuisine_final.csv"
     output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full_agg.csv"
     datatocsv.aggregate_data(csv_proc, output_csv)
 
