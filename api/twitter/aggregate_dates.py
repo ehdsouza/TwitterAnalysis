@@ -100,4 +100,4 @@ if __name__ == '__main__':
     # cls.aggregate_india()
     # cls.aggregate_mideast()
     # cls.aggregate_chinese()
-    cls.aggregate_italian()
+    # cls.aggregate_italian()

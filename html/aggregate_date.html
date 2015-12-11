@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+
+    <body>
+        <div id="linechart_material"></div>
+    </body>
+
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="jquery.csv-0.71.js"></script>
+    <script>
+        google.load('visualization', '1.1', {packages: ['line']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.getJSON("http://localhost:5000/lta/v1/aggregation/years/indian", function(data) {
+
+                var arrayData = data.data
+                var tableData = new google.visualization.arrayToDataTable(arrayData);
+
+                var options = {
+                    chart: {
+                        title: 'Twitter sentiments throughout the year',
+                        subtitle: 'Positive, Negative, and Neutral: 2015'
+                    }
+                };
+
+                var chart = new google.charts.Line(document.getElementById('linechart_material'));
+                console.log(tableData);
+                chart.draw(tableData, options);
+            });
+        }
+    </script>
+
+</html>
