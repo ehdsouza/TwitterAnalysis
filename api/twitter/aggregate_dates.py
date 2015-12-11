@@ -7,6 +7,10 @@ import dateutil.parser as parser
 
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\india\\indian_cuisine_final.csv"
 mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_cuisine_final.csv"
+indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\india\\indian_cuisine_final.csv"
+chinese_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_cuisine_final.csv"
+
+chinese_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_aggregate_years.csv"
 indian_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\india\\indian_aggregate_years.csv"
 mideast_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_aggregate_years.csv"
 
@@ -22,6 +26,10 @@ class AggregateDates(object):
         cls.process_aggregation(mideast_file, mideast_out_file)
         return
 
+    @classmethod
+    def aggregate_chinese(cls):
+        cls.process_aggregation(chinese_file, chinese_out_file)
+        return
 
     @classmethod
     def process_aggregation(cls, in_file, outfile):
@@ -37,6 +45,7 @@ class AggregateDates(object):
                     count += 1
                     continue
                 else:
+                    count += 1
                     sentiment = row[4]
                     year = str(parser.parse(row[0]).year)
                     year = "'" + year + "'"
@@ -82,4 +91,5 @@ class AggregateDates(object):
 if __name__ == '__main__':
     cls = AggregateDates()
     # cls.aggregate_india()
-    cls.aggregate_mideast()
+    # cls.aggregate_mideast()
+    cls.aggregate_chinese()
