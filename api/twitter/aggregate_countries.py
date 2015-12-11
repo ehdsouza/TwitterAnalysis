@@ -6,7 +6,9 @@ from pprint import pprint
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\indian_cuisine_final.csv"
 mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_cuisine_final.csv"
 chinese_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_cuisine_final.csv"
+italian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\italy\\italian_cuisine_final.csv"
 
+italian_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\italy\\italian_aggregate_countries.csv"
 chinese_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_aggregate_countries.csv"
 indian_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\indian_aggregate_countries.csv"
 mideast_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_aggregate_countries.csv"
@@ -29,6 +31,11 @@ class AggregateCountries(object):
         return
 
     @classmethod
+    def aggregate_italian(cls):
+        cls.process_aggregation(italian_file, italian_out_file)
+        return
+
+    @classmethod
     def process_aggregation(cls, in_file, out_file):
         with open(in_file, 'rb') as fp:
 
@@ -42,7 +49,7 @@ class AggregateCountries(object):
                     continue
                 else:
                     if row[2] == 'global':
-                        row[2] = 'China'
+                        row[2] = 'Italy'
 
                     if not countries.has_key(row[2]):
                         countries[row[2]] = {
@@ -64,4 +71,5 @@ if __name__ == '__main__':
     cls = AggregateCountries()
     # cls.aggregate_india()
     # cls.aggregate_mideast()
-    cls.aggregate_chinese()
+    # cls.aggregate_chinese()
+    cls.aggregate_italian()

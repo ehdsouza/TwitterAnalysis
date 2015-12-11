@@ -10,7 +10,7 @@
      function drawRegionsMap() {
 
       // grab the CSV
-      $.get("indian_aggregate_countries.csv", function(csvString) {
+      $.get("csv/indian_aggregate_countries.csv", function(csvString) {
 
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});

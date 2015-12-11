@@ -9,7 +9,9 @@ indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locat
 mideast_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_cuisine_final.csv"
 indian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\india\\indian_cuisine_final.csv"
 chinese_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_cuisine_final.csv"
+italian_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\italy\\italian_cuisine_final.csv"
 
+italian_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\italy\\italian_aggregate_years.csv"
 chinese_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\china\\chinese_aggregate_years.csv"
 indian_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\india\\indian_aggregate_years.csv"
 mideast_out_file = "F:\\SOIC Courses\\Big Data\\Final Project\\Cuisine-Dataset\\locations\\final\\mideast\\mideast_aggregate_years.csv"
@@ -29,6 +31,11 @@ class AggregateDates(object):
     @classmethod
     def aggregate_chinese(cls):
         cls.process_aggregation(chinese_file, chinese_out_file)
+        return
+
+    @classmethod
+    def aggregate_italian(cls):
+        cls.process_aggregation(italian_file, italian_out_file)
         return
 
     @classmethod
@@ -92,4 +99,5 @@ if __name__ == '__main__':
     cls = AggregateDates()
     # cls.aggregate_india()
     # cls.aggregate_mideast()
-    cls.aggregate_chinese()
+    # cls.aggregate_chinese()
+    cls.aggregate_italian()
