@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Use twitter/count_tweets to generate data for this chart -->
+<html>
+  <head>
+<script src="https://www.google.com/jsapi"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="jquery.csv-0.71.js"></script>
+      <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
 
-</body>
+      function drawChart() {
+
+      // grab the CSV
+      $.get("piechart.csv", function(csvString) {
+
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+      var data = new google.visualization.arrayToDataTable(arrayData);
+
+        var options = {
+
+            title: 'Tweets for 4 Cuisines',
+            is3D: true
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+
+        chart.draw(data, options);
+
+      });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+  </body>
 </html>

@@ -1,9 +1,9 @@
 import csv
 
-indian_file = ""
-mideast_file = ""
-chinese_file = ""
-italian_file = ""
+indian_file = "indian_cuisine_final.csv"
+mideast_file = "mideast_cuisine_final.csv"
+chinese_file = "chinese_cuisine_final.csv"
+italian_file = "italian_cuisine_final.csv"
 
 
 class Count_tweets(object):
@@ -29,10 +29,7 @@ class Count_tweets(object):
             count = 0
 
             for row in reader:
-                if count == 1:
-                    continue
-                else:
-                    count += 1
+                count += 1
 
         cls.key_val[cuisine] = count
 
