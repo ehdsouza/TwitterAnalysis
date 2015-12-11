@@ -2,11 +2,11 @@ import csv
 from collections import OrderedDict
 
 """
-For Bar Graph
+For Bubble Graph
 
 """
 
-class DataToCsv:
+class DataBubbleChart:
 
     def aggregate_data(self, csv_to_proc, output_csv, head_count):
         """
@@ -69,9 +69,9 @@ class DataToCsv:
 
 # TEST #
 if __name__ == "__main__":
-    datatocsv = DataToCsv()
+    bubbly = DataBubbleChart()
     csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_cuisine_final.csv"
     output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full_agg_bubble.csv"
-    datatocsv.aggregate_data(csv_proc, output_csv, 9999)
+    bubbly.aggregate_data(csv_proc, output_csv, 9999)
 
 
