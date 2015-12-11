@@ -1,0 +1,71 @@
+Country,Positive,Negative,Neutral,Total
+United States,324,140,118,582
+Egypt,230,72,66,368
+India,146,87,52,285
+United Kingdom,126,42,18,186
+Canada,61,16,11,88
+Italy,31,11,13,55
+Malaysia,23,18,9,50
+Pakistan,38,9,2,49
+Australia,16,7,10,33
+Indonesia,11,13,7,31
+Philippines,12,10,6,28
+United Arab Emirates,12,2,4,18
+Singapore,7,3,3,13
+France,4,5,2,11
+Bahrain,4,6,0,10
+Turkey,8,1,1,10
+South Africa,5,4,1,10
+Japan,3,6,1,10
+Germany,4,2,2,8
+Kuwait,6,1,0,7
+Saudi Arabia,5,0,2,7
+Kenya,4,1,1,6
+Spain,1,4,1,6
+Colombia,2,3,1,6
+Czech Republic,2,2,1,5
+Ireland,1,3,1,5
+Netherlands,4,1,0,5
+Sweden,1,3,1,5
+Thailand,4,0,0,4
+New Zealand,1,2,1,4
+Mexico,1,3,0,4
+Brazil,0,3,0,3
+Georgia,1,0,2,3
+Norway,3,0,0,3
+Israel,1,2,0,3
+Russian Federation,1,2,0,3
+Ukraine,1,1,1,3
+Guyana,1,0,2,3
+Nepal,1,2,0,3
+Finland,2,1,0,3
+China,2,0,1,3
+Sri Lanka,1,2,0,3
+Costa Rica,2,0,0,2
+Luxembourg,2,0,0,2
+Viet Nam,2,0,0,2
+Lebanon,0,0,2,2
+Jamaica,2,0,0,2
+Equatorial Guinea,0,2,0,2
+Paraguay,0,2,0,2
+Denmark,2,0,0,2
+Portugal,1,1,0,2
+Uruguay,0,2,0,2
+Fiji,0,0,2,2
+Cuba,1,0,0,1
+Panama,0,1,0,1
+Argentina,0,0,1,1
+Ecuador,0,1,0,1
+Bangladesh,0,0,1,1
+"Iran, Islamic Republic of",1,0,0,1
+Guatemala,0,1,0,1
+Romania,0,1,0,1
+Chile,0,1,0,1
+Oman,0,1,0,1
+Jordan,1,0,0,1
+Belize,1,0,0,1
+Country,0,0,0,1
+Mali,1,0,0,1
+"Taiwan, Province of China",0,0,1,1
+Iraq,0,1,0,1
+Honduras,0,1,0,1
