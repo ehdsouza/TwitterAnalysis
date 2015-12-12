@@ -58,7 +58,8 @@ class DataToCsv:
         for data in sortedresult:
             if count == head_count:
                 break
-            csvout.writerow([data[1]['country'], data[1]['positive'], data[1]['negative'], data[1]['neutral']])
+            if data[1]['country'] != "global":
+                csvout.writerow([data[1]['country'], data[1]['positive'], data[1]['negative'], data[1]['neutral']])
             count += 1
             #print(data[1])
 
@@ -71,6 +72,6 @@ if __name__ == "__main__":
     datatocsv = DataToCsv()
     csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_cuisine_final.csv"
     output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full_agg.csv"
-    datatocsv.aggregate_data(csv_proc, output_csv, 20)
+    datatocsv.aggregate_data(csv_proc, output_csv, 5)
 
 

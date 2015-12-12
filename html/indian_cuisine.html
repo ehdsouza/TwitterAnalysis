@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>
+
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+                        <div class="navbar-header">
+
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                            </button> <a class="navbar-brand" href="#">Live Twitter Analysis</a>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <hr>
+        <div class="container-fluid">
+
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Analytics Results - Charts</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">World Map</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="geo_map"></div> <!-- geo map -->
+                                    </div>
+                                </div> <!-- panel -->
+                            </div> <!-- col-md-6 -->
+
+                            <div class="col-md-6">
+
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Year Wise Trends
+                                                </a>
+                                            </h4>
+                                        </div> <!-- panel head -->
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div id="line_chart"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- panel -->
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Sentiments By Country
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                <div id="bar_chart"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- panel -->
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading" role="tab" id="headingThree">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Sentiment Density by Country
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body">
+                                                <div id="bubble_chart"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- panel -->
+                                </div> <!-- panel group -->
+
+                                <!-- Button trigger modal -->
+                                <button type="button" id="modalBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                                    View Word Cloud
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Word Cloud</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="word_cloud"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> <!-- col-md-6 -->
+                        </div> <!-- panel body -->
+                    </div> <!-- panel -->
+                </div><!-- col-12 -->
+            </div> <!-- row -->
+        </div> <!-- container -->
+
+        <!-- Javascript -->
+        <!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>-->
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!--<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['line', 'geochart']}]}"></script>-->
+        <script src="https://www.google.com/jsapi"></script>
+        <script src="jquery.csv-0.71.js"></script>
+
+        <script>
+            google.load("visualization", "1");
+            google.load('visualization', '1.1', {packages: ['line', 'bar', 'corechart']});
+        </script>
+
+        <script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>
+
+        <script src="js/indian_cuisine.js"></script>
+
+    </body>
+</html>

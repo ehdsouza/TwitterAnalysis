@@ -1,38 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+        <!--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>-->
+        <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <!--<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['line', 'geochart']}]}"></script>-->
+        <script src="https://www.google.com/jsapi"></script>
+        <script src="jquery.csv-0.71.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.css"/>
+        <script type="text/javascript" src="http://visapi-gadgets.googlecode.com/svn/trunk/wordcloud/wc.js"></script>
+
+        <script>
+            google.load("visualization", "1");
+            google.load('visualization', '1.1', {packages: ['line', 'bar', 'corechart']});
+
+            $(document).ready(function(){
+                drawChart();
+
+            });
+
+            function readTextFile(file)
+            {
+              var textFile = new XMLHttpRequest();
+              textFile.open("GET", file, false);
+              textFile.onreadystatechange = function ()
+              {
+                  if(textFile.readyState === 4)
+                  {
+                      if(textFile.status === 200 || textFile.status == 0)
+                      {
+                          text = textFile.responseText;
+                      }
+                  }
+              }
+              textFile.send(null);
+            }
+
+            function drawChart() {
+
+                <!-- GEO CHART -->
+                $.get("csv/indian_aggregate_countries.csv", function(csvString) {
+
+                    var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+                    var tableData = new google.visualization.arrayToDataTable(arrayData);
+
+                    var options = {
+                        chart: {
+                            title: 'Location-wise tweets'
+                        },
+                        colorAxis: {colors: ['#00853f', 'black', '#e31b23']},
+                        backgroundColor: '#0099FF',
+                        datalessRegionColor: '#CCFF99',
+                        defaultColor: '#f5f5f5'
+                    };
+
+                    var chart1 = new google.visualization.GeoChart(document.getElementById("regions_div"));
+                    chart1.draw(tableData, options);
+                });
+
+                <!-- LINE GRAPH -->
+                $.get("csv/indian_aggregate_years.csv", function(csvString) {
+
+                    var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+                    var tableData = new google.visualization.arrayToDataTable(arrayData);
+
+                    var options = {
+                        chart: {
+                            title: 'Twitter sentiments throughout the year',
+                            subtitle: 'Positive, Negative, and Neutral: 2015'
+                        }
+                    };
+
+                    var chart2 = new google.charts.Line(document.getElementById('linechart_material'));
+                    chart2.draw(tableData, options);
+
+                    <!-- BAR GRAPH -->
+                    // grab the CSV
+                    $.get("csv/indian_full_agg.csv", function(csvString) {
+
+                        // transform the CSV string into a 2-dimensional array
+                        var arrayData3 = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+                        var data3 = new google.visualization.arrayToDataTable(arrayData3);
+
+                        var options = {
+                          chart: {
+                            title: 'Twitter sentiments continent',
+                            subtitle: 'Positive, Negative, and Neutral: 2014-2017',
+                          }
+                        };
+
+                        var chart3 = new google.charts.Bar(document.getElementById('bar_chart'));
+
+                        chart3.draw(data3, options);
+                    });
+                });
+
+                <!-- BUBBLE-CHART -->
+                $.get("csv/indian_full_agg_bubble.csv", function(csvString) {
+
+                    // transform the CSV string into a 2-dimensional array
+                    var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+                    var data = new google.visualization.arrayToDataTable(arrayData);
+
+                    var options = {
+                      title: 'Tweet bubbles for different countries.',
+                      hAxis: {title: 'Negative'},
+                      vAxis: {title: 'Positive'},
+                      bubble: {textStyle: {fontSize: 11}},
+                      colorAxis: {colors: ['yellow', 'orange', '#800080']},
+                      datalessRegionColor: '#CCFF99',
+                      defaultColor: '#f5f5f5'
+
+                    };
+
+                    var chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart'));
+                    chart.draw(data, options);
+
+                    <!-- WORD_CLOUD -->
+
+                    <!--readTextFile("csv/indian_full_agg_text.csv")-->
+                    <!--//alert(text)-->
+                    <!--var data = new google.visualization.DataTable();-->
+                    <!--data.addColumn('string', 'Text1');-->
+                    <!--data.addRows(1);-->
+                    <!--data.setCell(0,0, text);-->
+                    <!--var outputDiv = document.getElementById('word_cloud');-->
+                    <!--var wc = new WordCloud(outputDiv);-->
+                    <!--wc.draw(data, null);-->
+
+                });
+
+            }
+        </script>
     </head>
 
     <body>
-        <div id="linechart_material"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="regions_div"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="linechart_material"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="bar_chart"></div>
+                </div>
+                <div class="col-md-6">
+                    <div id="bubble_chart"></div>
+                </div>
+            </div>
+                <!--<div class="col-md-6" style="overflow:scroll">-->
+                    <!--<div id="word_cloud"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
     </body>
-
-    <script src="https://www.google.com/jsapi"></script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="jquery.csv-0.71.js"></script>
-    <script>
-        google.load('visualization', '1.1', {packages: ['line']});
-        google.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            $.getJSON("http://localhost:5000/lta/v1/aggregation/years/indian", function(data) {
-
-                var arrayData = data.data
-                var tableData = new google.visualization.arrayToDataTable(arrayData);
-
-                var options = {
-                    chart: {
-                        title: 'Twitter sentiments throughout the year',
-                        subtitle: 'Positive, Negative, and Neutral: 2015'
-                    }
-                };
-
-                var chart = new google.charts.Line(document.getElementById('linechart_material'));
-                console.log(tableData);
-                chart.draw(tableData, options);
-            });
-        }
-    </script>
 
 </html>

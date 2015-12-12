@@ -14,7 +14,7 @@
       function drawChart() {
 
       // grab the CSV
-      $.get("example.csv", function(csvString) {
+      $.get("csv/indian_full_agg.csv", function(csvString) {
 
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
