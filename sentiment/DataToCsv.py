@@ -70,8 +70,8 @@ class DataToCsv:
 # TEST #
 if __name__ == "__main__":
     datatocsv = DataToCsv()
-    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_cuisine_final.csv"
-    output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full_agg.csv"
+    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/html/csv/mideast_cuisine_final.csv"
+    output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/mideast_full_agg.csv"
     datatocsv.aggregate_data(csv_proc, output_csv, 5)
 
 

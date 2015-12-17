@@ -70,8 +70,8 @@ class DataBubbleChart:
 # TEST #
 if __name__ == "__main__":
     bubbly = DataBubbleChart()
-    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_cuisine_final.csv"
-    output_csv = "/home/mangirish/BDAA/TwitterAnalysis/csvs/indian_full_agg_bubble.csv"
+    csv_proc = "/home/mangirish/BDAA/TwitterAnalysis/html/csv/mideast_cuisine_final.csv"
+    output_csv = "/home/mangirish/BDAA/TwitterAnalysis/html/csv/mideast_full_agg_bubble.csv"
     bubbly.aggregate_data(csv_proc, output_csv, 9999)
 
 

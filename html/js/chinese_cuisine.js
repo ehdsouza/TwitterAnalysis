@@ -5,7 +5,7 @@ $(function() { //ready
 		
 	function drawGeoChart() {
 		<!-- GEO CHART -->
-		$.get("csv/indian_aggregate_countries.csv", function(csvString) {
+		$.get("csv/chinese_aggregate_countries.csv", function(csvString) {
 
 			var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
 			var tableData = new google.visualization.arrayToDataTable(arrayData);
@@ -27,7 +27,7 @@ $(function() { //ready
 	
 	function drawLineChart() {
 		<!-- LINE CHART -->
-		$.get("csv/indian_aggregate_years.csv", function(csvString) {
+		$.get("csv/chinese_aggregate_years.csv", function(csvString) {
 
 			var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
 			var tableData = new google.visualization.arrayToDataTable(arrayData);
@@ -47,7 +47,7 @@ $(function() { //ready
 	function drawBarChart() {
 		<!-- BAR GRAPH -->
 		// grab the CSV
-		$.get("csv/indian_full_agg.csv", function(csvString) {
+		$.get("csv/chinese_full_agg.csv", function(csvString) {
 
 			// transform the CSV string into a 2-dimensional array
 			var arrayData3 = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
@@ -68,7 +68,7 @@ $(function() { //ready
 	
 	function drawBubbleChart() {
 		<!-- BAR CHART -->
-		$.get("csv/indian_full_agg_bubble.csv", function(csvString) {
+		$.get("csv/chinese_full_agg_bubble.csv", function(csvString) {
 
 			// transform the CSV string into a 2-dimensional array
 			var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
@@ -104,7 +104,7 @@ $(function() { //ready
 	}
 	
 	function drawWordCloud() {
-		readTextFile("csv/indian_full_agg_text.csv")
+		readTextFile("csv/chinese_full_agg_text.csv")
 		//alert(text)
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Text1');
